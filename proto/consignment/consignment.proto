@@ -5,9 +5,7 @@ package go.micro.srv.consignment;
 
 service ShippingService {
   rpc CreateConsignment(Consignment) returns (Response) {}
-
   rpc GetConsignments(GetRequest) returns (Response) {}
-
 }
 
 message Consignment {
