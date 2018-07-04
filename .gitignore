@@ -67,3 +67,8 @@ Temporary Items
 
 # govendor
 vendor/*
+
+# Project file
+consignment-cli/consignment-cli
+consignment-service
+proto/consignment/consignment.pb.go
