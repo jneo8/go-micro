@@ -63,12 +63,3 @@ Temporary Items
 
 
 # End of https://www.gitignore.io/api/go,git,linux,macos
-
-
-# govendor
-vendor/*
-
-# Project file
-consignment-cli/consignment-cli
-consignment-service
-proto/consignment/consignment.pb.go
