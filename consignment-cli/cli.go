@@ -8,7 +8,7 @@ import (
 	"os"
 
 	microclient "github.com/micro/go-micro/client"
-	"github.con/micro/go-micro/cmd"
+	"github.com/micro/go-micro/cmd"
 	pb "go-micro/consignment-service/proto/consignment"
 	"golang.org/x/net/context"
 )
@@ -31,7 +31,7 @@ func main() {
 	cmd.Init()
 
 	// Create new greeter client
-	client := pb.NewShippingServiceClient("go.micro.srv.consignment", microclient.DefaultClient)
+	client := pb.NewShippingService("go.micro.srv.consignment", microclient.DefaultClient)
 
 	// Contact the server and print out its response.
 	file := defaultFilename
@@ -50,7 +50,7 @@ func main() {
 		log.Fatalf("Could not greet: %v", err)
 	}
 	log.Printf("Created: %t", r.Created)
-	GetAll, err := client.getConsignments(context.Background(), &pb.Getrequest{})
+	getAll, err := client.GetConsignments(context.Background(), &pb.GetRequest{})
 	if err != nil {
 		log.Fatalf("Could not list consignments: %v", err)
 	}
