@@ -69,3 +69,4 @@ vendor/*
 
 # project
 consignment-service/consignment-service
+consignment-cli/consignment-cli
