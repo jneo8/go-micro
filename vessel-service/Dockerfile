@@ -1,7 +1,6 @@
-
 FROM golang:1.11 as builder
 
-WORKDIR /go/src/go-micro/consignment-cli
+WORKDIR /go/src/go-micro/vessel-service
 
 COPY . .
 
@@ -15,13 +14,14 @@ RUN dep ensure -v
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
+
 FROM debian:latest
 
-RUN mkdir -p /app
+# RUN apk --no-cache add ca-certificates
+
+RUN mkdir /app
 WORKDIR /app
 
-ADD consignment.json /app/consignment.json
-COPY --from=builder /go/src/go-micro/consignment-cli/consignment-cli .
+COPY --from=builder /go/src/go-micro/vessel-service/vessel-service .
 
-CMD ["./consignment-cli"]
-
+CMD ["./vessel-service"]
