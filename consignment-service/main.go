@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	// Import the generated protobuf code
 	vesselProto "github.com/jneo8/go-micro/vessel-service/proto/vessel"
@@ -52,6 +53,8 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
 	})
+
+	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
 
 	if err != nil {
 		return err

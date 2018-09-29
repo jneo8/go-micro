@@ -2,7 +2,7 @@
 // source: proto/vessel/vessel.proto
 
 /*
-Package go_micro_srv_vessel is a generated protocol buffer package.
+Package vessel is a generated protocol buffer package.
 
 It is generated from these files:
 	proto/vessel/vessel.proto
@@ -12,7 +12,7 @@ It has these top-level messages:
 	Specification
 	Response
 */
-package go_micro_srv_vessel
+package vessel
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
@@ -56,7 +56,7 @@ func NewVesselService(name string, c client.Client) VesselService {
 		c = client.NewClient()
 	}
 	if len(name) == 0 {
-		name = "go.micro.srv.vessel"
+		name = "vessel"
 	}
 	return &vesselService{
 		c:    c,
