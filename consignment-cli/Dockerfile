@@ -21,7 +21,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 ADD consignment.json /app/consignment.json
-COPY --from=builder /go/src/go-micro/consignment-service/consignment-cli .
+COPY --from=builder /go/src/go-micro/consignment-cli/consignment-cli .
 
 CMD ["./consignment-cli"]
 
