@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
+	pb "github.com/jneo8/go-micro/consignment-service/proto/consignment"
 	microclient "github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/cmd"
-	pb "go-micro/consignment-service/proto/consignment"
 	"golang.org/x/net/context"
 )
 
