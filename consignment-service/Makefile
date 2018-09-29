@@ -8,7 +8,7 @@ build:
 	protoc -I. --proto_path=$(GVM_PROJ_PATH)/consignment-service:. --micro_out=. --go_out=. proto/consignment/consignment.proto
 
 	# GOOS=linux GOARCH=amd64 go build
-	docker build -t consignment-service .
+	docker build --no-cache -t consignment-service .
 
 run: 
 	docker run --rm -p 50051:50051 \

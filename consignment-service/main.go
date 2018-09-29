@@ -2,8 +2,6 @@
 package main
 
 import (
-	"log"
-	// "net"
 	"fmt"
 
 	// Import the generated protobuf code
@@ -58,8 +56,6 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	if err != nil {
 		return err
 	}
-
-	log.Printf("Found vessel %s \n", vesselResponse.Vessel.Name)
 
 	// We set VesselId as the vessel Weight got back from our vessel service.
 	req.VesselId = vesselResponse.Vessel.Id
