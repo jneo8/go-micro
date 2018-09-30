@@ -37,7 +37,7 @@ type service struct {
 func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
 	vessel, err := s.repo.FindAvailable(req)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	// Set the vessel as part of the reesponse message type
@@ -47,7 +47,7 @@ func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res 
 
 func main() {
 	vessels := []*pb.Vessel{
-		&pb.Vessel{Id: "vessel001", Name: "Boaty McBoatface", MaxWeight: 20000, Capacity: 500},
+		&pb.Vessel{Id: "vessel001", Name: "Boaty McBoatface", MaxWeight: 2000000, Capacity: 500},
 	}
 	repo := &VesselRepository{vessels}
 	srv := micro.NewService(
