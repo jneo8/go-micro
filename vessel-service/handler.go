@@ -2,10 +2,8 @@ package main
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"github.com/micro/go-micro"
 	pb "go-micro/vessel-service/proto/vessel"
+	"gopkg.in/mgo.v2"
 )
 
 type service struct {
@@ -16,7 +14,7 @@ func (s *service) GetRepo() Repository {
 	return &VesselRepository{s.session.Clone()}
 }
 
-func (s *service) FindAvailable(ctx context.Contextm, req *pb.Specification, res *pb.Response) error {
+func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
 	repo := s.GetRepo()
 	defer repo.Close()
 
@@ -31,7 +29,7 @@ func (s *service) FindAvailable(ctx context.Contextm, req *pb.Specification, res
 	return nil
 }
 
-func (s *service) Create(ctx context.Contextm, req *pb.Vessel, res *pb.Response) error {
+func (s *service) Create(ctx context.Context, req *pb.Vessel, res *pb.Response) error {
 	repo := s.GetRepo()
 	defer repo.Close()
 	if err := repo.Create(req); err != nil {

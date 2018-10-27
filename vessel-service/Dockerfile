@@ -12,7 +12,7 @@ RUN dep init -v
 
 RUN dep ensure -v
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
+RUN CGO_ENABLED=0 GOOS=linux go build -o vessel-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
 
 
 FROM debian:latest
