@@ -30,8 +30,20 @@ func (repo *VesselRepository) FindAvailable(spec *pb.Specification) (*pb.Vessel,
 		"capacity":  bson.M{"$gte": spec.Capacity},
 		"maxweight": bson.M{"$gte": spec.MaxWeight},
 	}).One(&vessel)
-	if err := nil {
-	    return nil, err
+	if err != nil {
+		return nil, err
 	}
 	return vessel, nil
+}
+
+func (repo *VesselRepository) Create(vessel *pb.Vessel) error {
+	return repo.collection().Insert(vessel)
+}
+
+func (repo *VesselRepository) Close() {
+	repo.session.Close()
+}
+
+func (repo *VesselRepository) collection() *mgo.Collection {
+	return repo.session.DB(dbName).C(vesselColection)
 }
