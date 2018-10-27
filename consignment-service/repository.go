@@ -16,7 +16,7 @@ type Repository interface {
 	Close()
 }
 
-type Consignmentrepository struct {
+type ConsignmentRepository struct {
 	session *mgo.Session
 }
 

@@ -4,14 +4,16 @@ import (
 	vesselProto "github.com/jneo8/go-micro/vessel-service/proto/vessel"
 	pb "go-micro/consignment-service/proto/consignment"
 	"golang.org/x/net/context"
+	"gopkg.in/mgo.v2"
 	"log"
 )
 
-type handler struct {
+type service struct {
+	session      *mgo.Session
 	vesselClient vesselProto.VesselService
 }
 
-func (s *handler) getRepo() Repository {
+func (s *service) GetRepo() Repository {
 	return &ConsignmentRepository{s.session.Clone()}
 }
 
@@ -19,8 +21,8 @@ func (s *handler) getRepo() Repository {
 // which is a create method, which takes a context and a request as
 // an argument, these are handled by the gRPC server.
 
-func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
-	repo := s.getRepo()
+func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+	repo := s.GetRepo()
 	defer repo.Close()
 	// Here we call a client instance of our vessel service with consignment weight,
 	// and the amount of containers as the capacity value
@@ -34,7 +36,7 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	}
 
 	// We set the VesselId as the vessel we got back from our vessel service
-	req.VesslId = vesselResponse.Vessel.Id
+	req.VesselId = vesselResponse.Vessel.Id
 
 	// save our consignment
 	err = repo.Create(req)
@@ -49,10 +51,10 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	return nil
 }
 
-func (s *handler) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
+func (s *service) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
 	repo := s.GetRepo()
 	defer repo.Close()
-	consignments, err := repo.getAll()
+	consignments, err := repo.GetAll()
 	if err != nil {
 		return err
 	}

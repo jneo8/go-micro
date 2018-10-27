@@ -10,7 +10,6 @@ import (
 	vesselProto "github.com/jneo8/go-micro/vessel-service/proto/vessel"
 	micro "github.com/micro/go-micro"
 	pb "go-micro/consignment-service/proto/consignment"
-	"golang.org/x/net/context"
 )
 
 const (
@@ -31,26 +30,26 @@ func main() {
 	defer session.Close()
 
 	if err != nil {
-		log.Panicf("Could not connect to datastore with host %s - %v", host, error)
+		log.Panicf("Could not connect to datastore with host %s - %v", host, err)
 	}
 
 	// Create a new service. Optionally include some options here.
 	srv := micro.NewService(
-	    // This name must match the package name given in your protobuf definition
-	    micro.Name("go.micro.srv.consignment"),
-	    micro.version("latest")
+		// This name must match the package name given in your protobuf definition
+		micro.Name("go.micro.srv.consignment"),
+		micro.Version("latest"),
 	)
 
-	vesselClient := vesselproto.NewVesselService("go.micro.srv.vessel", srv.Client())
+	vesselClient := vesselProto.NewVesselService("go.micro.srv.vessel", srv.Client())
 
 	// Init will parse the command line flags.
 	srv.Init()
 
 	// Register handler
-	pb.registerShippingServiceHandler(srv.Server(), &service{session, vesselClient})
+	pb.RegisterShippingServiceHandler(srv.Server(), &service{session, vesselClient})
 
 	if err := srv.Run(); err != nil {
-	    fmt.Println(err)
+		fmt.Println(err)
 	}
 }
 
