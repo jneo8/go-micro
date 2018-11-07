@@ -23,3 +23,18 @@ services:
     environment:
       MICRO_ADDRESS: ":50051"
       MICRO_REGISTRY: "mdns"
+      DB_HOST: "datastore:27017"
+  datastore:
+      image: mongo
+      hostname: datastore
+      ports:
+          - 27017:27017
+  datastore-gui:
+      image: adicom/admin-mongo
+      ports:
+          - 1234:1234
+
+networks:
+    default:
+        external:
+            name: go-micro
