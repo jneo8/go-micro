@@ -1,4 +1,4 @@
-GVM_PROJ_PATH=/home/ubuntu/.gvm/pkgsets/go1.11/micro/src/go-micro
+GVM_PROJ_PATH=/home/james/.gvm/pkgsets/go1.11/go-micro/src/go-micro
 
 
 gen:
